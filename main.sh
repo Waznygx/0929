@@ -134,28 +134,29 @@ s_register()
                         break
                 fi
         done
-        read -p "please input your spassword:" sp1
-        read -p "please input your spassword again:" sp2
+        read -sp "please input your spassword:" sp1
+	echo ""
+        read -sp "please input your spassword again:" sp2
         if [ "$sp1" != "$sp2" ]
         then
                 echo "spassword different!"
         else
-                echo "successfully created!"
+                echo -e "\nsuccessfully created!\n"
                 echo -ne "$sid\t$sp1\n" >> $s_account
         fi
 }
 s_login()
 {
         read -p "please input your sid:" sid
-        read -p "please input your spassword:" sp1
+        read -sp "please input your spassword:" sp1
 #如果第一个字段（$1）等于id且第二个字段（$2）等于p1，那么就设置变量found为1。在处理完所有行后，如果found不为1（即没有找到匹配的id和密码），那么退出状态为1，否则退出状态为0
 #在没有找到匹配的id和密码时返回一个特殊的退出状态2
         if awk -v sid="$sid" -v sp1="$sp1" -F'\t' '$1 == sid && $2 == sp1 {found=1} END {if (found != 1) exit 2}' s_account.txt
         then
-                echo "Login successful!"
+                echo -e "\nLogin successful!\n"
                 s_main
         else
-                echo "sid or spassword is incorrect!"
+                echo -e "\nsid or spassword is incorrect!\n"
         fi
 }
 s_sys()
@@ -196,28 +197,30 @@ register()
 			break
 	        fi
 	done
-        read -p "please input your password:" p1
-        read -p "please input your password again:" p2
+        read -sp "please input your password:" p1
+	echo ""
+        read -sp "please input your password again:" p2
         if [ "$p1" != "$p2" ]
         then
-                echo "password different!"
+                echo -e "\npassword different!\n"
         else
-        	echo "successfully created!"
+        	echo -e "\nsuccessfully created!\n"
 	        echo -ne "$id\t$p1\n" >> $account
         fi
 }
 login()
 {
         read -p "please input your id:" id
-        read -p "please input your password:" p1
-#如果第一个字段（$1）等于id且第二个字段（$2）等于p1，那么就设置变量found为1。在处理完所有行后，如果found不为1（即没有找到匹配的id和密码），那么退出状态为1，否则退出状态为0
+        read -sp "please input your password:" p1
+#如果第一个字段（$1）等于id且第二个字段（$2）等于p1，那么就设置变量found为1
+#在处理完所有行后，如果found不为1（即没有找到匹配的id和密码），那么退出状态为1，否则退出状态为0
 #在没有找到匹配的id和密码时返回一个特殊的退出状态2
 	if awk -v id="$id" -v p1="$p1" -F'\t' '$1 == id && $2 == p1 {found=1} END {if (found != 1) exit 2}' account.txt
 	then
-                echo "Login successful!"
+                echo -e "\nLogin successful!\n"
                 usermain
         else
-                echo "id or password is incorrect!"
+                echo -e "\nid or password is incorrect!\n"
         fi
 }
 user_sys()

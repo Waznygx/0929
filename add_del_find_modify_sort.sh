@@ -5,7 +5,6 @@ add_message()
 {
 	startUI
         read -p "please input sno you want to add:" sno
-#匹配任意长度的由空格和制表符组成的字符串，包括空字符串
         count=$(grep "^$sno[ \t]*" $stu_message | wc -l)
         if [ "$count" == 1 ]
       	then
@@ -34,7 +33,6 @@ delete_message()
         then
                 echo "sno not found"
         else
-#-i让sed直接修改文件,删除所有匹配模式^$sno的行
                 sed -i "/^$sno/d" $stu_message
 		echo "successfully deleted!"
         fi	
@@ -57,7 +55,6 @@ find_sno()
 find_sname()
 {       
         read -p "please input sname you want to find:" sname
-#读取文件中的每一行，将每一行按照制表符分割成多个字段，然后检查第二个字段是否等于变量name的值。如果等于，就打印这一行
         stu_info=$(awk -v name="$sname" -F '\t' '$2 == name {print}' $stu_message)
 	if [ -z "$stu_info" ]
 	then
